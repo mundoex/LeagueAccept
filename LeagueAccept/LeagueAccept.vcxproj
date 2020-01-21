@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{3D0B563B-E808-4405-8198-6EB42C2F59D5}</ProjectGuid>
     <RootNamespace>LeagueAccept</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -146,9 +146,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ImageComparator.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="src\ScreenCapture.cpp" />
+    <ClCompile Include="src\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ImageComparator.h" />
     <ClInclude Include="includes\opencv2\calib3d.hpp" />
     <ClInclude Include="includes\opencv2\calib3d\calib3d.hpp" />
     <ClInclude Include="includes\opencv2\calib3d\calib3d_c.h" />
@@ -434,13 +438,19 @@
     <ClInclude Include="includes\opencv2\video\tracking.hpp" />
     <ClInclude Include="includes\opencv2\video\video.hpp" />
     <ClInclude Include="includes\opencv2\world.hpp" />
+    <ClInclude Include="src\ScreenCapture.h" />
+    <ClInclude Include="src\utils.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="libs\opencv2\opencv_world348.lib" />
     <Library Include="libs\opencv2\opencv_world348d.lib" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="1280x720.jpg" />
+    <Image Include="accept.png" />
+    <Image Include="cropped.png" />
     <Image Include="opencv.jpg" />
+    <Image Include="opencv2.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

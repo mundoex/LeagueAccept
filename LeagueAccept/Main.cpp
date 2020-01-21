@@ -1,35 +1,30 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
-
-bool exists_test3(const std::string& name);
+#include "wtypes.h"
+#include "opencv2/highgui.hpp"
+#include "src/ScreenCapture.h"
+#include "ImageComparator.h"
+#define MATCH_THRESHOLD 0.85
+#define TICK_RATE 1
 
 int main(int argc, char** argv)
 {
-	std::string imageName = "C:\\Users\\Bruno\\source\\repos\\LeagueAccept\\LeagueAccept\\opencv.jpg";
+	ScreenCapture sc = ScreenCapture();
+	sc.capture();
+	ImageComparator ic = ImageComparator();
 
-	if (argc > 1)
-	{
-		imageName = argv[1];
-	}
+	cv::Mat acceptPng = cv::imread("accept.png", cv::IMREAD_GRAYSCALE);
+	cv::Mat cropped = cv::imread("cropped.png", cv::IMREAD_GRAYSCALE);
+	cv::Mat pop720 = cv::imread("1280x720.jpg", cv::IMREAD_GRAYSCALE);
 
-	cv::Mat image;
+	cv::Mat opencvImg = cv::imread("opencv.png", cv::IMREAD_GRAYSCALE);
+	cv::Mat opencv2Img = cv::imread("opencv2.png", cv::IMREAD_GRAYSCALE);
 
-	image = cv::imread("opencv.jpg");
-
-	if (!image.empty()) {
-		cv::namedWindow("Window Here", cv::WINDOW_AUTOSIZE);
-		cv::imshow("Window Here", image);
-		cv::waitKey(0);
-		return 0;
-	}
-	else {
-		std::cout << "NOP" << std::endl;
-		cv::waitKey(5000);
-		return -1;
-	}
-}
-
-bool exists_test3(const std::string& name) {
-	struct stat buffer;
-	return (stat(name.c_str(), &buffer) == 0);
+	//screenshot + convert to gray
+	cv::Mat screenshot;
+	cv::cvtColor(sc.image, screenshot, CV_BGR2GRAY);
+	
+	ic.compare(acceptPng, cropped, 0.85f);
+	std::cout << ic.result << std::endl;
+	cv::waitKey(5000);
 }
