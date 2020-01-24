@@ -1,6 +1,5 @@
 #pragma once
 #include <opencv2/imgproc.hpp>
-
 class ImageComparator
 {
 public:
@@ -10,6 +9,6 @@ public:
 	ImageComparator();
 	~ImageComparator();
 
-	bool compare(cv::Mat templateImage, cv::Mat image, float threshold);
+	bool contains(cv::Mat templateImage, cv::Mat image, float threshold);
 };
 

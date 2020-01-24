@@ -12,11 +12,11 @@ ImageComparator::~ImageComparator()
 
 }
 
-bool ImageComparator::compare(cv::Mat templateImage, cv::Mat image, float threshold)
+bool ImageComparator::contains(cv::Mat templateImage, cv::Mat image, float threshold)
 {
 	if (!templateImage.empty() || !image.empty()) {
 		cv::Mat resultMat;
-		cv::matchTemplate(templateImage, image, resultMat, cv::TM_CCORR_NORMED);
+		cv::matchTemplate(templateImage, image, resultMat, cv::TM_CCOEFF_NORMED);
 		double minVal; double maxVal; cv::Point minLoc; cv::Point maxLoc;
 		cv::Point matchLoc;
 		minMaxLoc(resultMat, &minVal, &maxVal, &minLoc, &maxLoc);

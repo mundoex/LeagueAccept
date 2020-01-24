@@ -92,6 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(ProjectDir)libs\opencv2;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -105,6 +106,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(ProjectDir)libs\opencv2;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -120,6 +122,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -137,6 +140,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -147,9 +151,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ImageComparator.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="LeagueAccept.cpp" />
+    <ClCompile Include="MouseWrapper.cpp" />
+    <ClCompile Include="other.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="src\ScreenCapture.cpp" />
     <ClCompile Include="src\utils.cpp" />
+    <ClCompile Include="SystemTray.cpp" />
+    <ClCompile Include="TemplateImage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImageComparator.h" />
@@ -438,8 +447,12 @@
     <ClInclude Include="includes\opencv2\video\tracking.hpp" />
     <ClInclude Include="includes\opencv2\video\video.hpp" />
     <ClInclude Include="includes\opencv2\world.hpp" />
+    <ClInclude Include="LeagueAccept.h" />
+    <ClInclude Include="MouseWrapper.h" />
     <ClInclude Include="src\ScreenCapture.h" />
     <ClInclude Include="src\utils.h" />
+    <ClInclude Include="SystemTray.h" />
+    <ClInclude Include="TemplateImage.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="libs\opencv2\opencv_world348.lib" />
@@ -449,6 +462,8 @@
     <Image Include="1280x720.jpg" />
     <Image Include="accept.png" />
     <Image Include="cropped.png" />
+    <Image Include="full_queue_pop_1280x720.png" />
+    <Image Include="full_queue_pop_1280x720_2.png" />
     <Image Include="opencv.jpg" />
     <Image Include="opencv2.jpg" />
   </ItemGroup>
