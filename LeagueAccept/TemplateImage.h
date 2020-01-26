@@ -4,10 +4,12 @@
 class TemplateImage
 {
 private:
-	cv::Mat image;
-	int width, height;
+	
+	
 public:
-	TemplateImage(const char* filename,int flags,int width,int height);
+	cv::Mat image;
+	int clientWidth, clientHeight;
+	TemplateImage(const char* filename,int flags,int clientWidth,int clientHeight);
 	~TemplateImage();
 };
 

@@ -4,8 +4,8 @@ MouseWrapper::MouseWrapper()
 {
 	GetClientRect(GetDesktopWindow(), &this->windowsize);
 	this->buffer->type = INPUT_MOUSE;
-	this->buffer->mi.dx = (0 * (0xFFFF / this->screenWidth()));
-	this->buffer->mi.dy = (0 * (0xFFFF / this->screenHeight()));
+	this->buffer->mi.dx = (0 * (0xFFFF / this->windowsize.right));
+	this->buffer->mi.dy = (0 * (0xFFFF / this->windowsize.bottom));
 	this->buffer->mi.mouseData = 0;
 	this->buffer->mi.dwFlags = MOUSEEVENTF_ABSOLUTE;
 	this->buffer->mi.time = 0;
@@ -19,8 +19,9 @@ MouseWrapper::~MouseWrapper()
 
 void MouseWrapper::moveTo(int x,int y)
 {
-	this->buffer->mi.dx = (x * (0xFFFF / this->screenWidth));
-	this->buffer->mi.dy = (y * (0xFFFF / this->screenHeight));
+	//0xFFFF 65535
+	this->buffer->mi.dx = (x * (0xFFFF / this->screenWidth()));
+	this->buffer->mi.dy = (y * (0xFFFF / this->screenHeight()));
 	this->buffer->mi.dwFlags = (MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE);
 	SendInput(1, this->buffer, sizeof(INPUT));
 }
@@ -42,7 +43,7 @@ void MouseWrapper::click()
 }
 
 LONG MouseWrapper::screenWidth() {
-	return this->windowsize.top;
+	return this->windowsize.right;
 }
 
 LONG MouseWrapper::screenHeight() {

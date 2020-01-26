@@ -16,6 +16,10 @@ private:
 	const int CHECK_FOR_DODGE_MINS = 5;
 	const float IMAGE_THRESHOLD = 0.85f;//img cmp %
 
+	TemplateImage pop1024x576 = TemplateImage("1024x576_pop.png", cv::IMREAD_GRAYSCALE, 1024, 576);
+	TemplateImage pop1280x720 = TemplateImage("1280x720_pop.png", cv::IMREAD_GRAYSCALE, 1280, 720);
+	TemplateImage pop1600x900 = TemplateImage("1600x900_pop.png", cv::IMREAD_GRAYSCALE, 1600, 900);
+
 	bool running;
 	QueueState state;
 	int matchedTemplateWidth;
@@ -25,12 +29,12 @@ private:
 	ImageComparator imageComparator;
 	ScreenCapture screenCapture;
 	MouseWrapper mouse;
-	std::array<TemplateImage,3> templateImages;
+	std::vector<TemplateImage> templateImages;
 
 	int start();
 	void tick();
 	bool captureAndCompare();
-	POINT calculateAcceptLocation(int width,int height);
+	POINT calculateAcceptLocation();
 public:
 	LeagueAccept();
 	~LeagueAccept();

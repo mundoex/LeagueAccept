@@ -8,7 +8,7 @@ private:
 	HDC hwindowDC, hwindowCompatibleDC;
 	int height, width, srcheight, srcwidth;
 	HBITMAP hbwindow;
-	BITMAPINFOHEADER  bi;
+	BITMAPINFOHEADER bi;
 public:
 	cv::Mat image;
 	ScreenCapture(float scale=1);

@@ -153,11 +153,8 @@
     <ClCompile Include="ImageComparator.cpp" />
     <ClCompile Include="LeagueAccept.cpp" />
     <ClCompile Include="MouseWrapper.cpp" />
-    <ClCompile Include="other.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Application.cpp" />
     <ClCompile Include="src\ScreenCapture.cpp" />
-    <ClCompile Include="src\utils.cpp" />
-    <ClCompile Include="SystemTray.cpp" />
     <ClCompile Include="TemplateImage.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -450,8 +447,6 @@
     <ClInclude Include="LeagueAccept.h" />
     <ClInclude Include="MouseWrapper.h" />
     <ClInclude Include="src\ScreenCapture.h" />
-    <ClInclude Include="src\utils.h" />
-    <ClInclude Include="SystemTray.h" />
     <ClInclude Include="TemplateImage.h" />
   </ItemGroup>
   <ItemGroup>
@@ -459,8 +454,10 @@
     <Library Include="libs\opencv2\opencv_world348d.lib" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\Desktop\1024x576_pop.png" />
+    <Image Include="..\..\..\..\Desktop\1600x900_pop.png" />
     <Image Include="1280x720.jpg" />
-    <Image Include="accept.png" />
+    <Image Include="1280x720_pop.png" />
     <Image Include="cropped.png" />
     <Image Include="full_queue_pop_1280x720.png" />
     <Image Include="full_queue_pop_1280x720_2.png" />

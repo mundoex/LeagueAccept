@@ -10,18 +10,24 @@ bool LeagueAccept::captureAndCompare()
 	cv::Mat screenshot;
 	this->screenCapture.capture();
 	cv::cvtColor(this->screenCapture.image, screenshot, CV_BGR2GRAY);
-	int result;
+	bool result;
+	TemplateImage* curTemp;
 	for (int i = 0; i < this->templateImages.size; i++) {
-		result+=this->imageComparator.contains(this->templateImages[i], screenshot, this->IMAGE_THRESHOLD);
+		curTemp = &this->templateImages.at(i);
+		result = this->imageComparator.contains(curTemp->image, screenshot, this->IMAGE_THRESHOLD);
+		if (result) {
+			this->matchedTemplateWidth = curTemp->clientWidth;
+			this->matchedTemplateHeight = curTemp->clientHeight;
+			return true;
+		}
 	}
-	return result > 0;
-	
+	return false;
 }
 
-POINT LeagueAccept::calculateAcceptLocation(int width,int height)
+POINT LeagueAccept::calculateAcceptLocation()
 {
-	float acceptX = (this->imageComparator.matchLocation.x + width) / 2;
-	float acceptY = (this->imageComparator.matchLocation.x + height) / 2;
+	float acceptX = (this->imageComparator.matchLocation.x + this->matchedTemplateWidth) / 2;
+	float acceptY = (this->imageComparator.matchLocation.x + this->matchedTemplateHeight) / 2;
 	return POINT{ acceptX,acceptY };
 }
 
@@ -29,14 +35,16 @@ LeagueAccept::LeagueAccept()
 {
 	this->running = false;
 	this->state = QueueState::STOP;
+
 	this->screenCapture = ScreenCapture();
 	this->imageComparator = ImageComparator();
 	this->mouse = MouseWrapper();
+
+	this->templateImages = std::vector<TemplateImage>(3);
+	templateImages.push_back(this->pop1024x576);
+	templateImages.push_back(this->pop1280x720);
+	templateImages.push_back(this->pop1600x900);
 	
-	//fix array
-	this->templateImages.at(0)= TemplateImage("", cv::IMREAD_GRAYSCALE, 1920, 1080);
-
-
 	this->matchedTemplateWidth = 0;
 	this->matchedTemplateHeight = 0;
 }
@@ -46,6 +54,13 @@ LeagueAccept::~LeagueAccept()
 	this->screenCapture.~ScreenCapture();
 	this->imageComparator.~ImageComparator();
 	this->mouse.~MouseWrapper();
+
+	this->workerThread.~thread();
+
+	this->templateImages.~vector<TemplateImage>();
+	this->pop1024x576.~TemplateImage();
+	this->pop1280x720.~TemplateImage();
+	this->pop1600x900.~TemplateImage();
 }
 
 void LeagueAccept::run()
@@ -63,7 +78,7 @@ int LeagueAccept::stop()
 
 void LeagueAccept::acceptMatch()
 {
-	this->mouse.moveTo(this->calculateAcceptLocation(1920, 1080));
+	this->mouse.moveTo(this->calculateAcceptLocation());
 	this->mouse.click();
 }
 

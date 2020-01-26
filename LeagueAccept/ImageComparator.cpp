@@ -3,13 +3,13 @@
 ImageComparator::ImageComparator()
 {
 	//error default values
-	result = -1;
-	matchLocation = cv::Point(-1, -1);
+	this->result = -1;
+	this->matchLocation = cv::Point(-1, -1);
 }
 
 ImageComparator::~ImageComparator()
 {
-
+	
 }
 
 bool ImageComparator::contains(cv::Mat templateImage, cv::Mat image, float threshold)

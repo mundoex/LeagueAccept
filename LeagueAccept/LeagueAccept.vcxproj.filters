@@ -15,31 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\ScreenCapture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ImageComparator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="other.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SystemTray.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LeagueAccept.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MouseWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TemplateImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LeagueAccept.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -899,25 +890,19 @@
     <ClInclude Include="includes\opencv2\world.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\ScreenCapture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ImageComparator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SystemTray.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LeagueAccept.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MouseWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TemplateImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LeagueAccept.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -932,9 +917,6 @@
     <Image Include="opencv2.jpg">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="accept.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="1280x720.jpg">
       <Filter>Resource Files</Filter>
     </Image>
@@ -945,6 +927,15 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="full_queue_pop_1280x720_2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1280x720_pop.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Desktop\1600x900_pop.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Desktop\1024x576_pop.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

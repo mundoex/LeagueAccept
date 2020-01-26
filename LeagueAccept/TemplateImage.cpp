@@ -1,10 +1,10 @@
 #include "TemplateImage.h"
 
-TemplateImage::TemplateImage(const char * filename, int flags, int width, int height)
+TemplateImage::TemplateImage(const char * filename, int flags, int clientWidth, int clientHeight)
 {
 	this->image = cv::imread(filename, flags);
-	this->width = width;
-	this->height = height;
+	this->clientWidth = clientWidth;
+	this->clientHeight = clientHeight;
 }
 
 TemplateImage::~TemplateImage()

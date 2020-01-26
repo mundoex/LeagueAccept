@@ -33,6 +33,7 @@ ScreenCapture::ScreenCapture(float scale)
 
 ScreenCapture::~ScreenCapture()
 {
+	
 	DeleteObject(hbwindow);
 	DeleteDC(hwindowCompatibleDC);
 	ReleaseDC(hwnd, hwindowDC);
