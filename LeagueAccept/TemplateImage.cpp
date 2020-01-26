@@ -7,6 +7,10 @@ TemplateImage::TemplateImage(const char * filename, int flags, int clientWidth, 
 	this->clientHeight = clientHeight;
 }
 
+TemplateImage::TemplateImage() {
+
+}
+
 TemplateImage::~TemplateImage()
 {
 }

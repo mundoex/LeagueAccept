@@ -1,10 +1,13 @@
 #pragma once
 #include <thread>
 #include <chrono>
+#include <vector>
+#include <limits>
 #include "ImageComparator.h"
 #include "src/ScreenCapture.h"
 #include "MouseWrapper.h"
 #include "TemplateImage.h"
+
 enum QueueState {
 	WAITING_FOR_POP,CHECKING_FOR_DODGE,STOP
 };

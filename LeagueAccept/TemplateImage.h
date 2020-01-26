@@ -9,6 +9,7 @@ private:
 public:
 	cv::Mat image;
 	int clientWidth, clientHeight;
+	TemplateImage();
 	TemplateImage(const char* filename,int flags,int clientWidth,int clientHeight);
 	~TemplateImage();
 };

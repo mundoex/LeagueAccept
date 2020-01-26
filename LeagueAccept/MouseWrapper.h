@@ -1,12 +1,11 @@
 #pragma once
 #include <windows.h>
+
 class MouseWrapper
 {
 private:
 	INPUT buffer[1];
 	RECT windowsize;
-
-	
 
 public:
 	MouseWrapper();
@@ -17,4 +16,3 @@ public:
 	void moveTo(POINT p);
 	void click();
 };
-

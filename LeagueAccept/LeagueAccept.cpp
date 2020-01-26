@@ -11,13 +11,11 @@ bool LeagueAccept::captureAndCompare()
 	this->screenCapture.capture();
 	cv::cvtColor(this->screenCapture.image, screenshot, CV_BGR2GRAY);
 	bool result;
-	TemplateImage* curTemp;
-	for (int i = 0; i < this->templateImages.size; i++) {
-		curTemp = &this->templateImages.at(i);
-		result = this->imageComparator.contains(curTemp->image, screenshot, this->IMAGE_THRESHOLD);
+	for (size_t i = 0; i < this->templateImages.size(); i++) {
+		result = this->imageComparator.contains(this->templateImages.at(i).image, screenshot, this->IMAGE_THRESHOLD);
 		if (result) {
-			this->matchedTemplateWidth = curTemp->clientWidth;
-			this->matchedTemplateHeight = curTemp->clientHeight;
+			this->matchedTemplateWidth = this->templateImages.at(i).clientWidth;
+			this->matchedTemplateHeight = this->templateImages.at(i).clientHeight;
 			return true;
 		}
 	}
@@ -26,8 +24,8 @@ bool LeagueAccept::captureAndCompare()
 
 POINT LeagueAccept::calculateAcceptLocation()
 {
-	float acceptX = (this->imageComparator.matchLocation.x + this->matchedTemplateWidth) / 2;
-	float acceptY = (this->imageComparator.matchLocation.x + this->matchedTemplateHeight) / 2;
+	LONG acceptX = (this->imageComparator.matchLocation.x + this->matchedTemplateWidth) / 2;
+	LONG acceptY = (this->imageComparator.matchLocation.x + this->matchedTemplateHeight) / 2;
 	return POINT{ acceptX,acceptY };
 }
 
@@ -67,7 +65,7 @@ void LeagueAccept::run()
 {
 	this->state = QueueState::WAITING_FOR_POP;
 	this->running = true;
-	this->workerThread = std::thread(this->start);
+	this->workerThread = std::thread(this->start());
 }
 
 int LeagueAccept::stop()

@@ -6,10 +6,8 @@
 
 int main()
 {
-	int counter = 100000;
+	int counter = 1000000;
 
 	for (int i = 0; i < counter; i++) {
-		std::cout << i << std::endl;
-		
 	}
 }
