@@ -65,7 +65,7 @@ void LeagueAccept::run()
 {
 	this->state = QueueState::WAITING_FOR_POP;
 	this->running = true;
-	this->workerThread = std::thread(this->start());
+	this->workerThread = std::thread(&LeagueAccept::start,this);
 }
 
 int LeagueAccept::stop()

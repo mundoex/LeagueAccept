@@ -1,8 +1,6 @@
-#include "src/ScreenCapture.h"
-#include "ImageComparator.h"
 #include <iostream>
 #include <memory>
-#include "MouseWrapper.h"
+
 
 int main()
 {

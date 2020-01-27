@@ -905,6 +905,9 @@
     <ClInclude Include="src\opencv-utils\TemplateImage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ScreenCapture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="libs\opencv2\opencv_world348d.lib" />
