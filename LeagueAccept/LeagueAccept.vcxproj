@@ -150,15 +150,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ImageComparator.cpp" />
     <ClCompile Include="LeagueAccept.cpp" />
-    <ClCompile Include="MouseWrapper.cpp" />
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="src\ScreenCapture.cpp" />
-    <ClCompile Include="TemplateImage.cpp" />
+    <ClCompile Include="src\opencv-utils\ImageComparator.cpp" />
+    <ClCompile Include="src\opencv-utils\MouseWrapper.cpp" />
+    <ClCompile Include="src\opencv-utils\ScreenCapture.cpp" />
+    <ClCompile Include="src\opencv-utils\TemplateImage.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ImageComparator.h" />
     <ClInclude Include="includes\opencv2\calib3d.hpp" />
     <ClInclude Include="includes\opencv2\calib3d\calib3d.hpp" />
     <ClInclude Include="includes\opencv2\calib3d\calib3d_c.h" />
@@ -445,9 +444,11 @@
     <ClInclude Include="includes\opencv2\video\video.hpp" />
     <ClInclude Include="includes\opencv2\world.hpp" />
     <ClInclude Include="LeagueAccept.h" />
-    <ClInclude Include="MouseWrapper.h" />
+    <ClInclude Include="src\opencv-utils\ImageComparator.h" />
+    <ClInclude Include="src\opencv-utils\MouseWrapper.h" />
+    <ClInclude Include="src\opencv-utils\ScreenCapture.h" />
+    <ClInclude Include="src\opencv-utils\TemplateImage.h" />
     <ClInclude Include="src\ScreenCapture.h" />
-    <ClInclude Include="TemplateImage.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="libs\opencv2\opencv_world348.lib" />
@@ -456,13 +457,7 @@
   <ItemGroup>
     <Image Include="..\..\..\..\Desktop\1024x576_pop.png" />
     <Image Include="..\..\..\..\Desktop\1600x900_pop.png" />
-    <Image Include="1280x720.jpg" />
-    <Image Include="1280x720_pop.png" />
-    <Image Include="cropped.png" />
-    <Image Include="full_queue_pop_1280x720.png" />
-    <Image Include="full_queue_pop_1280x720_2.png" />
-    <Image Include="opencv.jpg" />
-    <Image Include="opencv2.jpg" />
+    <Image Include="res\1280x720.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

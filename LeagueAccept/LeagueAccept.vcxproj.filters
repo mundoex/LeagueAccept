@@ -15,22 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ScreenCapture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageComparator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseWrapper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TemplateImage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LeagueAccept.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\opencv-utils\ImageComparator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\opencv-utils\ScreenCapture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\opencv-utils\TemplateImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\opencv-utils\MouseWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -890,19 +890,19 @@
     <ClInclude Include="includes\opencv2\world.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ScreenCapture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageComparator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseWrapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TemplateImage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="LeagueAccept.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\opencv-utils\ImageComparator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\opencv-utils\MouseWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\opencv-utils\ScreenCapture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\opencv-utils\TemplateImage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -911,31 +911,13 @@
     <Library Include="libs\opencv2\opencv_world348.lib" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="opencv.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="opencv2.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="1280x720.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="cropped.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="full_queue_pop_1280x720.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="full_queue_pop_1280x720_2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="1280x720_pop.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="..\..\..\..\Desktop\1600x900_pop.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\..\..\..\Desktop\1024x576_pop.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\1280x720.jpg">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -17,7 +17,7 @@ MouseWrapper::~MouseWrapper()
 	DeleteObject(this->buffer);
 }
 
-void MouseWrapper::moveTo(int x,int y)
+void MouseWrapper::moveTo(int x, int y)
 {
 	//0xFFFF 65535
 	this->buffer->mi.dx = (x * (0xFFFF / this->screenWidth()));
