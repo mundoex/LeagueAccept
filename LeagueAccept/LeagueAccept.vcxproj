@@ -459,9 +459,9 @@
     <Library Include="libs\opencv2\opencv_world348d.lib" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\Desktop\1024x576_pop.png" />
-    <Image Include="..\..\..\..\Desktop\1600x900_pop.png" />
+    <Image Include="res\1024x576_pop.png" />
     <Image Include="res\1280x720.jpg" />
+    <Image Include="res\1600x900_pop.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
