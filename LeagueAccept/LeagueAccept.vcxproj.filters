@@ -902,6 +902,9 @@
     <ClInclude Include="src\ScreenCapture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="libs\opencv2\opencv_world348d.lib" />
@@ -917,5 +920,13 @@
     <Image Include="res\1280x720_pop.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\..\..\..\Desktop\Projects\AutoAccept\autoacceptdesktop_TMN_icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LeagueAccept.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

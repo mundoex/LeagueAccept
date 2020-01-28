@@ -447,6 +447,7 @@
     <ClInclude Include="includes\opencv2\video\video.hpp" />
     <ClInclude Include="includes\opencv2\world.hpp" />
     <ClInclude Include="LeagueAccept.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="src\opencv-utils\ImageComparator.h" />
     <ClInclude Include="src\opencv-utils\MouseWrapper.h" />
     <ClInclude Include="src\opencv-utils\ScreenCapture.h" />
@@ -457,9 +458,13 @@
     <Library Include="libs\opencv2\opencv_world348d.lib" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\Desktop\Projects\AutoAccept\autoacceptdesktop_TMN_icon.ico" />
     <Image Include="res\1024x576_pop.png" />
     <Image Include="res\1280x720_pop.png" />
     <Image Include="res\1600x900_pop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LeagueAccept.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
