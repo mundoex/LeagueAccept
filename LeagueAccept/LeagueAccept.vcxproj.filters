@@ -27,9 +27,6 @@
     <ClCompile Include="src\opencv-utils\ScreenCapture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\opencv-utils\TemplateImage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\opencv-utils\MouseWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -900,9 +897,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\opencv-utils\ScreenCapture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\opencv-utils\TemplateImage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ScreenCapture.h">

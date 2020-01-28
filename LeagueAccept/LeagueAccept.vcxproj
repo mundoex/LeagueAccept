@@ -159,7 +159,6 @@
     <ClCompile Include="src\opencv-utils\ImageComparator.cpp" />
     <ClCompile Include="src\opencv-utils\MouseWrapper.cpp" />
     <ClCompile Include="src\opencv-utils\ScreenCapture.cpp" />
-    <ClCompile Include="src\opencv-utils\TemplateImage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\opencv2\calib3d.hpp" />
@@ -451,7 +450,6 @@
     <ClInclude Include="src\opencv-utils\ImageComparator.h" />
     <ClInclude Include="src\opencv-utils\MouseWrapper.h" />
     <ClInclude Include="src\opencv-utils\ScreenCapture.h" />
-    <ClInclude Include="src\opencv-utils\TemplateImage.h" />
     <ClInclude Include="src\ScreenCapture.h" />
   </ItemGroup>
   <ItemGroup>

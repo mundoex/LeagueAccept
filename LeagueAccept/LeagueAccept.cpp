@@ -2,18 +2,7 @@
 
 void LeagueAccept::tick()
 {
-	std::cout << "Tick" << std::endl;
 	Sleep(this->TICK_RATE);
-}
-
-void LeagueAccept::captureAndDisplay() {
-	cv::Mat screenshot;
-	this->screenCapture->capture();
-
-	cv::cvtColor(this->screenCapture->image, screenshot, CV_BGR2GRAY);
-	cv::imshow("QWE", screenshot);
-
-	cv::waitKey(1);
 }
 
 bool LeagueAccept::captureAndCompare()
@@ -24,14 +13,9 @@ bool LeagueAccept::captureAndCompare()
 	cv::waitKey(1);
 	bool result;
 	for (size_t i = 0; i < this->templateImages.size(); i++) {
-		//cv::imshow("Window", this->templateImages.at(i).image);
-		//cv::waitKey(this->TICK_RATE);
-		result = this->imageComparator.contains(this->templateImages.at(i).image, screenshot, this->IMAGE_THRESHOLD);
+		result = this->imageComparator.contains(this->templateImages.at(i), screenshot, this->IMAGE_THRESHOLD);
 		cv::waitKey(1);
-		std::cout << "Result: "<< result << std::endl;
 		if (result) {
-			this->matchedTemplateWidth = this->templateImages.at(i).clientWidth;
-			this->matchedTemplateHeight = this->templateImages.at(i).clientHeight;
 			return true;
 		}
 	}
@@ -54,13 +38,10 @@ LeagueAccept::LeagueAccept()
 	this->imageComparator = ImageComparator();
 	this->mouse = MouseWrapper();
 
-	this->templateImages = std::vector<TemplateImage>(3);
-	this->templateImages[0] = this->pop1024x576;
-	this->templateImages[1] = this->pop1280x720;
-	this->templateImages[2] = this->pop1600x900;
-	
-	this->matchedTemplateWidth = 0;
-	this->matchedTemplateHeight = 0;
+	this->templateImages = std::vector<cv::Mat>(3);
+	this->templateImages[0] = cv::imread("res/1024x576_pop.png", cv::IMREAD_GRAYSCALE);
+	this->templateImages[1] = cv::imread("res/1280x720_pop.png", cv::IMREAD_GRAYSCALE);
+	this->templateImages[2] = cv::imread("res/1600x900_pop.png", cv::IMREAD_GRAYSCALE);
 }
 
 LeagueAccept::~LeagueAccept()
@@ -69,19 +50,18 @@ LeagueAccept::~LeagueAccept()
 	this->imageComparator.~ImageComparator();
 	this->mouse.~MouseWrapper();
 
-	this->workerThread.~thread();
-
-	this->templateImages.~vector<TemplateImage>();
-	this->pop1024x576.~TemplateImage();
-	this->pop1280x720.~TemplateImage();
-	this->pop1600x900.~TemplateImage();
+	//this->workerThread.~thread();
+	this->templateImages[0].~Mat();
+	this->templateImages[1].~Mat();
+	this->templateImages[2].~Mat();
+	this->templateImages.~vector<cv::Mat>();
 }
 
 void LeagueAccept::run()
 {
 	this->state = QueueState::WAITING_FOR_POP;
 	this->running = true;
-	this->workerThread = std::thread(&LeagueAccept::start,this);
+	//this->workerThread = std::thread(&LeagueAccept::start,this);
 }
 
 int LeagueAccept::stop()
@@ -99,6 +79,8 @@ void LeagueAccept::acceptMatch()
 void LeagueAccept::start() {
 	std::chrono::high_resolution_clock::time_point stopTimePoint;
 	bool result;
+	this->running = true;
+	this->state = QueueState::WAITING_FOR_POP;
 	while (this->running) {
 		this->tick();
 		switch (this->state)
