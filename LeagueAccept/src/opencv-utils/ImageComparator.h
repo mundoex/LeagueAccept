@@ -4,7 +4,7 @@ class ImageComparator
 {
 public:
 	float result;
-	cv::Point matchLocation;
+	cv::Point center;
 	cv::Point matchLocationMax;
 	ImageComparator();
 	~ImageComparator();

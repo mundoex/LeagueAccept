@@ -12,5 +12,5 @@ int main()
 	//sc.capture();
 	//cv::imshow("GUI", sc.image);
 	//cv::waitKey(1);
-
+	
 }

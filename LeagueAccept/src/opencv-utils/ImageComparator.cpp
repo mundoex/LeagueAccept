@@ -4,7 +4,7 @@ ImageComparator::ImageComparator()
 {
 	//error default values
 	this->result = -1;
-	this->matchLocation = cv::Point(-1, -1);
+	this->center = cv::Point(-1, -1);
 	this->matchLocationMax = cv::Point(-1, -1);
 }
 
@@ -18,13 +18,14 @@ bool ImageComparator::contains(cv::Mat templateImage, cv::Mat image, float thres
 	if (!templateImage.empty() || !image.empty()) {
 		cv::Mat resultMat;
 		cv::matchTemplate(templateImage, image, resultMat, cv::TM_CCOEFF_NORMED);
-		double minVal; double maxVal; cv::Point minLoc; cv::Point maxLoc;
-		cv::Point matchLoc;
-		minMaxLoc(resultMat, &minVal, &maxVal, &minLoc, &maxLoc);
-		matchLoc = minLoc;
+		double minVal; double maxVal; cv::Point min;
+		minMaxLoc(resultMat, &minVal, &maxVal, &min, &this->matchLocationMax);
+		
 		result = (float)maxVal;
-		matchLocation = matchLoc;
-		matchLocationMax = maxLoc;
+		if (result > threshold) {
+			this->center = { templateImage.cols/2,templateImage.rows/2};
+			return true;
+		}
 	}
-	return result >= threshold;
+	return result > threshold;
 }

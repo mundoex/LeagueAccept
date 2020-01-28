@@ -40,10 +40,8 @@ bool LeagueAccept::captureAndCompare()
 
 POINT LeagueAccept::calculateAcceptLocation()
 {
-	//1920 1080 this->mouse.screenWidth this->mouse.screenHeight
-	LONG acceptX = this->imageComparator.matchLocation.x+ (1920 / 2);
-	LONG acceptY = this->imageComparator.matchLocation.y+(1080 / 2);
-	std::cout << "Width:" << acceptX << "Height:" << acceptY << std::endl;
+	LONG acceptX = this->imageComparator.matchLocationMax.x + this->imageComparator.center.x;
+	LONG acceptY = this->imageComparator.matchLocationMax.y + this->imageComparator.center.y;
 	return POINT{ acceptX,acceptY };
 }
 
