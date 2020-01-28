@@ -2,17 +2,33 @@
 
 void LeagueAccept::tick()
 {
-	std::this_thread::sleep_for(std::chrono::milliseconds(this->TICK_RATE));
+	std::cout << "Tick" << std::endl;
+	Sleep(this->TICK_RATE);
+}
+
+void LeagueAccept::captureAndDisplay() {
+	cv::Mat screenshot;
+	this->screenCapture->capture();
+
+	cv::cvtColor(this->screenCapture->image, screenshot, CV_BGR2GRAY);
+	cv::imshow("QWE", screenshot);
+
+	cv::waitKey(1);
 }
 
 bool LeagueAccept::captureAndCompare()
 {
 	cv::Mat screenshot;
-	this->screenCapture.capture();
-	cv::cvtColor(this->screenCapture.image, screenshot, CV_BGR2GRAY);
+	this->screenCapture->capture();
+	cv::cvtColor(this->screenCapture->image, screenshot, CV_BGR2GRAY);
+	cv::waitKey(1);
 	bool result;
 	for (size_t i = 0; i < this->templateImages.size(); i++) {
+		//cv::imshow("Window", this->templateImages.at(i).image);
+		//cv::waitKey(this->TICK_RATE);
 		result = this->imageComparator.contains(this->templateImages.at(i).image, screenshot, this->IMAGE_THRESHOLD);
+		cv::waitKey(1);
+		std::cout << "Result: "<< result << std::endl;
 		if (result) {
 			this->matchedTemplateWidth = this->templateImages.at(i).clientWidth;
 			this->matchedTemplateHeight = this->templateImages.at(i).clientHeight;
@@ -24,8 +40,10 @@ bool LeagueAccept::captureAndCompare()
 
 POINT LeagueAccept::calculateAcceptLocation()
 {
-	LONG acceptX = (this->imageComparator.matchLocation.x + this->matchedTemplateWidth) / 2;
-	LONG acceptY = (this->imageComparator.matchLocation.x + this->matchedTemplateHeight) / 2;
+	//1920 1080 this->mouse.screenWidth this->mouse.screenHeight
+	LONG acceptX = this->imageComparator.matchLocation.x+ (1920 / 2);
+	LONG acceptY = this->imageComparator.matchLocation.y+(1080 / 2);
+	std::cout << "Width:" << acceptX << "Height:" << acceptY << std::endl;
 	return POINT{ acceptX,acceptY };
 }
 
@@ -34,14 +52,14 @@ LeagueAccept::LeagueAccept()
 	this->running = false;
 	this->state = QueueState::STOP;
 
-	this->screenCapture = ScreenCapture();
+	this->screenCapture = new ScreenCapture();
 	this->imageComparator = ImageComparator();
 	this->mouse = MouseWrapper();
 
 	this->templateImages = std::vector<TemplateImage>(3);
-	templateImages.push_back(this->pop1024x576);
-	templateImages.push_back(this->pop1280x720);
-	templateImages.push_back(this->pop1600x900);
+	this->templateImages[0] = this->pop1024x576;
+	this->templateImages[1] = this->pop1280x720;
+	this->templateImages[2] = this->pop1600x900;
 	
 	this->matchedTemplateWidth = 0;
 	this->matchedTemplateHeight = 0;
@@ -49,7 +67,7 @@ LeagueAccept::LeagueAccept()
 
 LeagueAccept::~LeagueAccept()
 {
-	this->screenCapture.~ScreenCapture();
+	delete this->screenCapture;
 	this->imageComparator.~ImageComparator();
 	this->mouse.~MouseWrapper();
 
@@ -80,7 +98,7 @@ void LeagueAccept::acceptMatch()
 	this->mouse.click();
 }
 
-int LeagueAccept::start() {
+void LeagueAccept::start() {
 	std::chrono::high_resolution_clock::time_point stopTimePoint;
 	bool result;
 	while (this->running) {
@@ -107,10 +125,10 @@ int LeagueAccept::start() {
 			break;
 
 		case (QueueState::STOP):
-			return this->stop();
+			 this->stop();
 		
 		default:
-			return this->stop();
+			this->stop();
 		}
 	}
 }

@@ -914,13 +914,13 @@
     <Library Include="libs\opencv2\opencv_world348.lib" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\1280x720.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\1024x576_pop.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\1600x900_pop.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\1280x720_pop.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

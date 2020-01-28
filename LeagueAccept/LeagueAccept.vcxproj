@@ -460,7 +460,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\1024x576_pop.png" />
-    <Image Include="res\1280x720.jpg" />
+    <Image Include="res\1280x720_pop.png" />
     <Image Include="res\1600x900_pop.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

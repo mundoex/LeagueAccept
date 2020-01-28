@@ -5,6 +5,7 @@ ImageComparator::ImageComparator()
 	//error default values
 	this->result = -1;
 	this->matchLocation = cv::Point(-1, -1);
+	this->matchLocationMax = cv::Point(-1, -1);
 }
 
 ImageComparator::~ImageComparator()
@@ -23,6 +24,7 @@ bool ImageComparator::contains(cv::Mat templateImage, cv::Mat image, float thres
 		matchLoc = minLoc;
 		result = (float)maxVal;
 		matchLocation = matchLoc;
+		matchLocationMax = maxLoc;
 	}
 	return result >= threshold;
 }

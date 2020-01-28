@@ -1,11 +1,16 @@
 #include <iostream>
 #include <memory>
-
+#include "LeagueAccept.h"
 
 int main()
 {
-	int counter = 1000000;
+	LeagueAccept la = LeagueAccept();
+	la.running = true;
+	la.state = QueueState::WAITING_FOR_POP;
+	la.start();
+	//ScreenCapture sc = ScreenCapture();
+	//sc.capture();
+	//cv::imshow("GUI", sc.image);
+	//cv::waitKey(1);
 
-	for (int i = 0; i < counter; i++) {
-	}
 }
