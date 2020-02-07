@@ -907,10 +907,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="libs\opencv2\opencv_world348d.lib" />
-    <Library Include="libs\opencv2\opencv_world348.lib" />
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="res\1024x576_pop.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -920,7 +916,7 @@
     <Image Include="res\1280x720_pop.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\..\..\Desktop\Projects\AutoAccept\autoacceptdesktop_TMN_icon.ico">
+    <Image Include="icon.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -928,5 +924,8 @@
     <ResourceCompile Include="LeagueAccept.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LeagueAccept.aps" />
   </ItemGroup>
 </Project>

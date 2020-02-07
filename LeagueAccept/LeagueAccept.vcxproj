@@ -454,17 +454,16 @@
     <ClInclude Include="src\ScreenCapture.h" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="libs\opencv2\opencv_world348.lib" />
-    <Library Include="libs\opencv2\opencv_world348d.lib" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\..\Desktop\Projects\AutoAccept\autoacceptdesktop_TMN_icon.ico" />
+    <Image Include="icon.ico" />
     <Image Include="res\1024x576_pop.png" />
     <Image Include="res\1280x720_pop.png" />
     <Image Include="res\1600x900_pop.png" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="LeagueAccept.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LeagueAccept.aps" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
