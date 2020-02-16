@@ -39,9 +39,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_USER://Continuous use of the procedure when the news
 		if (lParam == WM_LBUTTONDOWN)
-			MessageBox(hwnd, TEXT("Win32 API realize the system tray program, you can exit the double-click the tray!"), szAppName, MB_OK);
-		if (lParam == WM_LBUTTONDBLCLK)//Double click on the tray news, exit
-			SendMessage(hwnd, WM_CLOSE, wParam, lParam);
+		{
+			PostMessage(hwnd, WM_USER, NULL, WM_RBUTTONDOWN);
+		}
+
+		if (lParam == WM_LBUTTONDBLCLK)
+		{
+		}
+
 		if (lParam == WM_RBUTTONDOWN)
 		{
 			GetCursorPos(&pt);//Take the mouse coordinates
