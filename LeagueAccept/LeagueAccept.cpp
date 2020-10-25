@@ -1,8 +1,29 @@
 #include "LeagueAccept.h"
 
-void LeagueAccept::tick()
+LeagueAccept::LeagueAccept()
 {
-	Sleep(this->TICK_RATE);
+	running = false;
+	state = QueueState::STOP;
+
+	this->screenCapture = new ScreenCapture();
+	this->imageComparator = ImageComparator();
+	this->mouse = MouseWrapper();
+
+	this->templateImages = std::vector<cv::Mat>(3);
+	this->templateImages[0] = cv::imread("res/1024x576_pop.png", cv::IMREAD_GRAYSCALE);
+	this->templateImages[1] = cv::imread("res/1280x720_pop.png", cv::IMREAD_GRAYSCALE);
+	this->templateImages[2] = cv::imread("res/1600x900_pop.png", cv::IMREAD_GRAYSCALE);
+}
+
+LeagueAccept::~LeagueAccept()
+{
+	//this->screenCapture->~ScreenCapture();
+	//this->imageComparator.~ImageComparator();
+
+	//this->templateImages[0].~Mat();
+	//this->templateImages[1].~Mat();
+	//this->templateImages[2].~Mat();
+	//this->templateImages.~vector<cv::Mat>();
 }
 
 bool LeagueAccept::captureAndCompare()
@@ -29,44 +50,16 @@ POINT LeagueAccept::calculateAcceptLocation()
 	return POINT{ acceptX,acceptY };
 }
 
-LeagueAccept::LeagueAccept()
-{
-	this->running = false;
-	this->state = QueueState::STOP;
-
-	this->screenCapture = new ScreenCapture();
-	this->imageComparator = ImageComparator();
-	this->mouse = MouseWrapper();
-
-	this->templateImages = std::vector<cv::Mat>(3);
-	this->templateImages[0] = cv::imread("res/1024x576_pop.png", cv::IMREAD_GRAYSCALE);
-	this->templateImages[1] = cv::imread("res/1280x720_pop.png", cv::IMREAD_GRAYSCALE);
-	this->templateImages[2] = cv::imread("res/1600x900_pop.png", cv::IMREAD_GRAYSCALE);
-}
-
-LeagueAccept::~LeagueAccept()
-{
-	delete this->screenCapture;
-	this->imageComparator.~ImageComparator();
-	this->mouse.~MouseWrapper();
-
-	//this->workerThread.~thread();
-	this->templateImages[0].~Mat();
-	this->templateImages[1].~Mat();
-	this->templateImages[2].~Mat();
-	this->templateImages.~vector<cv::Mat>();
-}
-
 void LeagueAccept::run()
 {
-	this->state = QueueState::WAITING_FOR_POP;
-	this->running = true;
-	//this->workerThread = std::thread(&LeagueAccept::start,this);
+	state= QueueState::WAITING_FOR_POP;
+	running = true;
 }
 
 int LeagueAccept::stop()
 {
-	this->running = false;
+	state = QueueState::STOP;
+	running = false;
 	return 0;
 }
 
@@ -76,39 +69,17 @@ void LeagueAccept::acceptMatch()
 	this->mouse.click();
 }
 
-void LeagueAccept::start() {
-	std::chrono::high_resolution_clock::time_point stopTimePoint;
-	bool result;
-	this->running = true;
-	this->state = QueueState::WAITING_FOR_POP;
-	while (this->running) {
-		this->tick();
-		switch (this->state)
-		{
-		case (QueueState::WAITING_FOR_POP):
-			result = this->captureAndCompare();
-			if (result) {
-				state = QueueState::CHECKING_FOR_DODGE;
-				stopTimePoint = std::chrono::high_resolution_clock::now() + std::chrono::minutes(this->CHECK_FOR_DODGE_MINS);
-				this->acceptMatch();
-			}
-			break;
-
-		case (QueueState::CHECKING_FOR_DODGE):			
-			result = this->captureAndCompare();
-			if (result) {
-				this->acceptMatch();
-			}
-			if (std::chrono::high_resolution_clock::now() >= stopTimePoint) {
-				this->state = QueueState::STOP;
-			}
-			break;
-
-		case (QueueState::STOP):
-			 this->stop();
-		
-		default:
-			this->stop();
+void LeagueAccept::runLogic() {
+	switch (state) {
+	case (QueueState::WAITING_FOR_POP):
+		hasQueuePopped = this->captureAndCompare();
+		if (hasQueuePopped) {
+			this->acceptMatch();
+			hasQueuePopped = false;	
 		}
+		break;
+
+	case (QueueState::STOP): stop(); break;
+	default: stop(); break;
 	}
 }

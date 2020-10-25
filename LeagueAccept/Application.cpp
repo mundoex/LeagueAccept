@@ -1,6 +1,7 @@
 #include <windows.h>
 #include "LeagueAccept.h"
 #include "resource.h"
+#include <thread> 
 #define IDR_START 12
 #define IDR_STOP 13
 #define IDR_EXIT 14
@@ -11,8 +12,20 @@
 LPCTSTR szAppName = TEXT("League Accept");
 LPCTSTR szWndName = TEXT("League Accept");
 HMENU hmenu;//The menu handle
-LeagueAccept leagueAccept = LeagueAccept();
+
 HINSTANCE myHInstance;
+std::shared_ptr<LeagueAccept> instance = std::make_shared<LeagueAccept>();
+std::thread* logicThread;
+
+void startWaitingForPop() {
+	logicThread = new std::thread([]() {
+		instance->run();
+		while (instance->running) {
+			instance->runLogic();		
+			std::this_thread::sleep_for(std::chrono::milliseconds(instance->TICK_RATE));
+		}
+	});
+}
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -55,24 +68,24 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 			xx = TrackPopupMenu(hmenu, TPM_RETURNCMD, pt.x, pt.y, NULL, hwnd, NULL);//Display menu and the option to get ID
 			if (xx == IDR_START) {
 				ModifyMenu(hmenu, IDR_START, MF_BYCOMMAND | MF_STRING, IDR_STOP, "Stop");
-				leagueAccept.start();
+				startWaitingForPop();
 			}
 			if (xx == IDR_STOP) {
 				ModifyMenu(hmenu, IDR_STOP, MF_BYCOMMAND | MF_STRING, IDR_START, "Start");
-				leagueAccept.stop();
+				instance->stop();
 			}
 			if (xx == IDR_EXIT) {
-				leagueAccept.stop();
+				instance->stop();
 				exit(0);
 			}
 			
 			if (xx == 0) PostMessage(hwnd, WM_LBUTTONDOWN, NULL, NULL);
-			//MessageBox(hwnd, TEXT("The right key"), szAppName, MB_OK);
 		}
 		break;
 	case WM_DESTROY://Window destroyed when news
 		Shell_NotifyIcon(NIM_DELETE, &nid);
-		PostQuitMessage(0);
+		instance->stop();
+		PostQuitMessage(0);	
 		break;
 	default:
 		/*
@@ -89,8 +102,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return DefWindowProc(hwnd, message, wParam, lParam);
 }
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
-	LPSTR szCmdLine, int iCmdShow)
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine, int iCmdShow)
 {
 	HWND hwnd;
 	MSG msg;
@@ -139,5 +151,5 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
-	return msg.wParam;
+	return (int)msg.wParam;
 }

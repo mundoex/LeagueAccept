@@ -1,43 +1,38 @@
-#pragma once
-//#include <thread>
 #include <chrono>
 #include <vector>
+#include <thread>
 #include <opencv2/highgui/highgui.hpp>
 #include "src/opencv-utils/ImageComparator.h"
 #include "src/opencv-utils/ScreenCapture.h"
 #include "src/opencv-utils/MouseWrapper.h"
-//#include "src/opencv-utils/TemplateImage.h"
 
 enum QueueState {
-	WAITING_FOR_POP,CHECKING_FOR_DODGE,STOP
+	WAITING_FOR_POP,STOP
 };
 
 class LeagueAccept
 {
-private: 
-	const static int TICK_RATE = 2000;//1000mili=1sec
-	const static int CHECK_FOR_DODGE_MINS = 5;
-	const float IMAGE_THRESHOLD = 0.85f;//img cmp %
-	
-	//std::thread workerThread;
+	private: 	
+		ImageComparator imageComparator;
+		ScreenCapture* screenCapture;
+		MouseWrapper mouse;
+		std::vector<cv::Mat> templateImages;
+		bool hasQueuePopped;
 
-	ImageComparator imageComparator;
-	ScreenCapture* screenCapture;
-	MouseWrapper mouse;
-	std::vector<cv::Mat> templateImages;
+		bool captureAndCompare();
+		POINT calculateAcceptLocation();
 
-	void tick();
-	bool captureAndCompare();
-	POINT calculateAcceptLocation();
-public:
-	LeagueAccept();
-	~LeagueAccept();
+	public:
+		const static int TICK_RATE = 2000;//1000mili=1sec
+		const float IMAGE_THRESHOLD = 0.85f;//img cmp %
+		LeagueAccept();
+		~LeagueAccept();
+		bool running;
+		QueueState state;
+		std::thread* logicThread;
 
-	bool running;
-	QueueState state;
-
-	void run();
-	void start();
-	int stop();
-	void acceptMatch();
+		void runLogic();
+		void run();
+		void acceptMatch();
+		int stop();
 };
