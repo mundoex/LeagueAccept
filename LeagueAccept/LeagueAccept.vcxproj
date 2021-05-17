@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{3D0B563B-E808-4405-8198-6EB42C2F59D5}</ProjectGuid>
     <RootNamespace>LeagueAccept</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -154,13 +154,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="LeagueAccept.cpp" />
+    <ClCompile Include="src\states\BaseState.cpp" />
+    <ClCompile Include="src\states\IdleState.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="src\opencv-utils\ImageComparator.cpp" />
     <ClCompile Include="src\opencv-utils\MouseWrapper.cpp" />
     <ClCompile Include="src\opencv-utils\ScreenCapture.cpp" />
+    <ClCompile Include="src\state-machine\StateMachine.cpp" />
+    <ClCompile Include="src\states\PopState.cpp" />
+    <ClCompile Include="src\states\WaitingForPopState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ApplicationConstants.h" />
+    <ClInclude Include="src\states\BaseState.h" />
+    <ClInclude Include="src\states\IdleState.h" />
     <ClInclude Include="includes\opencv2\calib3d.hpp" />
     <ClInclude Include="includes\opencv2\calib3d\calib3d.hpp" />
     <ClInclude Include="includes\opencv2\calib3d\calib3d_c.h" />
@@ -446,12 +453,15 @@
     <ClInclude Include="includes\opencv2\video\tracking.hpp" />
     <ClInclude Include="includes\opencv2\video\video.hpp" />
     <ClInclude Include="includes\opencv2\world.hpp" />
-    <ClInclude Include="LeagueAccept.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="src\opencv-utils\ImageComparator.h" />
     <ClInclude Include="src\opencv-utils\MouseWrapper.h" />
     <ClInclude Include="src\opencv-utils\ScreenCapture.h" />
     <ClInclude Include="src\ScreenCapture.h" />
+    <ClInclude Include="src\states\PopState.h" />
+    <ClInclude Include="src\states\State.h" />
+    <ClInclude Include="src\state-machine\StateMachine.h" />
+    <ClInclude Include="src\states\WaitingForPopState.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico" />

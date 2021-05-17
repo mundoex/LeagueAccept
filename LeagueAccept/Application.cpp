@@ -1,31 +1,29 @@
-#include <windows.h>
-#include "LeagueAccept.h"
+#include "../src/ApplicationConstants.h";
 #include "resource.h"
 #include <thread> 
-#define IDR_START 12
-#define IDR_STOP 13
-#define IDR_EXIT 14
+#include <chrono>
+#include <map>
+#include "./src/states/IdleState.h"
+#include "./src/states/WaitingForPopState.h"
+#include "./src/states/PopState.h"
+
 /*
 #include <shellapi.h>
 #pragma   comment(lib,   "shell32.lib")
 */
-LPCTSTR szAppName = TEXT("League Accept");
-LPCTSTR szWndName = TEXT("League Accept");
-HMENU hmenu;//The menu handle
-
+LPCTSTR szAppName = TEXT(ApplicationConstants::APPLICATION_NAME.c_str());
+LPCTSTR szWndName = TEXT(ApplicationConstants::APPLICATION_NAME.c_str());
 HINSTANCE myHInstance;
-std::shared_ptr<LeagueAccept> instance = std::make_shared<LeagueAccept>();
-std::thread* logicThread;
 
-void startWaitingForPop() {
-	logicThread = new std::thread([]() {
-		instance->run();
-		while (instance->running) {
-			instance->runLogic();		
-			std::this_thread::sleep_for(std::chrono::milliseconds(instance->TICK_RATE));
-		}
-	});
-}
+//global stuff
+HMENU gHMenu;
+StateMachine* gStateMachine=new StateMachine();
+
+//timer stuff
+typedef std::chrono::duration<float, std::milli> duration;
+static bool running = true;
+static auto lastUpdatedClock = std::chrono::system_clock::now();
+std::thread* leagueAcceptThread;
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -46,9 +44,29 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		nid.hIcon = LoadIcon(myHInstance, MAKEINTRESOURCE(IDI_ICON1));
 		lstrcpy(nid.szTip, szAppName);
 		Shell_NotifyIcon(NIM_ADD, &nid);
-		hmenu = CreatePopupMenu();//Create menu
-		AppendMenu(hmenu, MF_STRING, IDR_START, "Start"); // add two options for the menu
-		AppendMenu(hmenu, MF_STRING, IDR_EXIT, "Exit");
+		gHMenu = CreatePopupMenu();//Create menu
+		AppendMenu(gHMenu, MF_STRING, IDR_START, "Start"); // add two options for the menu
+		AppendMenu(gHMenu, MF_STRING, IDR_EXIT, "Exit");
+
+		//START NON GUI THREAD
+		leagueAcceptThread = new std::thread([]() {
+			//Setup
+			gStateMachine->InsertStatePair(State::IDLE, new IdleState(gStateMachine, gHMenu));
+			gStateMachine->InsertStatePair(State::WAITING_FOR_POP, new WaitingForPopState(gStateMachine, gHMenu));
+			gStateMachine->InsertStatePair(State::POP, new PopState(gStateMachine, gHMenu));
+
+			//Start
+			gStateMachine->Change(State::WAITING_FOR_POP);
+			gStateMachine->Render();
+			//Main loop
+			while (running) {
+				duration elapsed = lastUpdatedClock - std::chrono::system_clock::now();
+				float deltaTime = elapsed.count();
+				lastUpdatedClock = std::chrono::system_clock::now();
+				gStateMachine->Update(deltaTime);
+				std::this_thread::sleep_for(std::chrono::milliseconds(ApplicationConstants::TICK_RATE));
+			}
+		});
 		break;
 	case WM_USER://Continuous use of the procedure when the news
 		if (lParam == WM_LBUTTONDOWN)
@@ -65,17 +83,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 			GetCursorPos(&pt);//Take the mouse coordinates
 			::SetForegroundWindow(hwnd);//To solve the menu and click the menu does not disappear problem
 			
-			xx = TrackPopupMenu(hmenu, TPM_RETURNCMD, pt.x, pt.y, NULL, hwnd, NULL);//Display menu and the option to get ID
+			xx = TrackPopupMenu(gHMenu, TPM_RETURNCMD, pt.x, pt.y, NULL, hwnd, NULL);//Display menu and the option to get ID
 			if (xx == IDR_START) {
-				ModifyMenu(hmenu, IDR_START, MF_BYCOMMAND | MF_STRING, IDR_STOP, "Stop");
-				startWaitingForPop();
+				gStateMachine->Change(State::WAITING_FOR_POP);
+				gStateMachine->Render();
 			}
 			if (xx == IDR_STOP) {
-				ModifyMenu(hmenu, IDR_STOP, MF_BYCOMMAND | MF_STRING, IDR_START, "Start");
-				instance->stop();
+				gStateMachine->Change(State::IDLE);
+				gStateMachine->Render();
 			}
 			if (xx == IDR_EXIT) {
-				instance->stop();
+				running = false;
+				//clean memory
+				delete gStateMachine;
 				exit(0);
 			}
 			
@@ -84,7 +104,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_DESTROY://Window destroyed when news
 		Shell_NotifyIcon(NIM_DELETE, &nid);
-		instance->stop();
 		PostQuitMessage(0);	
 		break;
 	default:

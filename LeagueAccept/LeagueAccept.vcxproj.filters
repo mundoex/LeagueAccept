@@ -18,9 +18,6 @@
     <ClCompile Include="Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LeagueAccept.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\opencv-utils\ImageComparator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -28,6 +25,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\opencv-utils\MouseWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\states\IdleState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\state-machine\StateMachine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\states\WaitingForPopState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\states\PopState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\states\BaseState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -887,9 +899,6 @@
     <ClInclude Include="includes\opencv2\world.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LeagueAccept.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\opencv-utils\ImageComparator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -903,6 +912,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\states\State.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\states\IdleState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\states\BaseState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\state-machine\StateMachine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ApplicationConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\states\WaitingForPopState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\states\PopState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
